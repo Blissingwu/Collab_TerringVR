@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class BallController : MonoBehaviour
 {
+    public GameBoard_Manager gameBoard;
     public float baseForceMagnitude;
     public PhysicMaterial ballMaterial;
     public Transform hitterTransform;
@@ -87,6 +88,11 @@ public class BallController : MonoBehaviour
                 // Make sure the ball is always shot forward by the hitter's forward direction
                 Vector3 forwardForce = other.transform.forward * forceMagnitude;
 
+                // Ensure we apply the force only in the horizontal plane
+                forwardForce.y = 0.0f; // Preventing upward movement
+
+                Debug.Log(forwardForce);
+
                 rb.AddForce(forwardForce, ForceMode.Impulse);
 
                 Quaternion rotation = Quaternion.LookRotation(forceDirection);
@@ -97,10 +103,11 @@ public class BallController : MonoBehaviour
     }
 
 
+
     // 오브젝트가 잡혔을 때 호출되는 함수
     private void OnGrabbed(SelectEnterEventArgs args)
     {
         isGrabbed = true;
-        ReplayManager.Instance.targetBall = this.gameObject;
+        gameBoard.gameBoard_Cam.targetBall = this.gameObject;
     }
 }

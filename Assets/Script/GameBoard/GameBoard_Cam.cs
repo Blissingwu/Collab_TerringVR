@@ -1,23 +1,14 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using UnityEngine.XR.Interaction.Toolkit;
 
-public class ReplayManager : MonoBehaviour
+public class GameBoard_Cam : MonoBehaviour
 {
-    public static ReplayManager Instance;
-
-    public RawImage rawImage;
-    public Camera captureCamera;
-    public Vector3 captureOffset;
-    public GameObject targetBall;
-    public RenderTexture renderTexture;
-
-    void Awake()
-    {
-        Instance = this;
-
-    }
+    [LabelText("Replay Display Image")] public RawImage rawImage;
+    [LabelText("Replay Camera")] public Camera captureCamera;
+    [LabelText("Replay Camera Offset")] public Vector3 captureOffset;
+    [LabelText("Replay Target")] public GameObject targetBall;
+    [LabelText("Replay Texture")] public RenderTexture renderTexture;
 
     private void Start()
     {
@@ -35,6 +26,4 @@ public class ReplayManager : MonoBehaviour
             captureCamera.transform.position = targetBall.transform.position + captureOffset;
         }
     }
-
-
 }
